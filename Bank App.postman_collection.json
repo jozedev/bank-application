@@ -1,0 +1,448 @@
+{
+  "info": {
+    "_postman_id": "4bc7b238-7ba2-479c-ad43-eba1860e4f28",
+    "name": "Bank App",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50319699",
+    "_collection_link": "https://go.postman.co/collection/50319699-4bc7b238-7ba2-479c-ad43-eba1860e4f28?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "GET ALL Accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/cuentas",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "cuentas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/cuentas/1",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "cuentas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Account",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tipo\": \"B\",\r\n    \"saldoInicial\": 1300.0,\r\n    \"estado\": true,\r\n    \"clienteId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/cuentas",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "cuentas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Account",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"tipo\": \"D\",\r\n    \"saldoInicial\": 200.0,\r\n    \"estado\": true,\r\n    \"clienteId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/cuentas/1",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "cuentas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Account",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/cuentas/1",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "cuentas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH Account",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"estado\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/cuentas/2",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "cuentas",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Client",
+      "item": [
+        {
+          "name": "GET ALL Clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CLIENT_URL}}/clientes",
+              "host": [
+                "{{CLIENT_URL}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Client",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{CLIENT_URL}}/clientes/1",
+              "host": [
+                "{{CLIENT_URL}}"
+              ],
+              "path": [
+                "clientes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Client",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"identificacion\": \"1238284DSS\",\r\n\t\"nombre\": \"Alberto Alvarés\",\r\n\t\"genero\": \"M\",\r\n\t\"edad\": 20,\r\n\t\"direccion\": \"Av. Real 123\",\r\n\t\"telefono\": \"999213122\",\r\n\t\"contrasena\": \"assaasa\",\r\n\t\"estado\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{CLIENT_URL}}/clientes",
+              "host": [
+                "{{CLIENT_URL}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Client",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"identificacion\": \"1238284DSS\",\r\n\t\"nombre\": \"Alberto Alvarés\",\r\n\t\"genero\": \"M\",\r\n\t\"edad\": 55,\r\n\t\"direccion\": \"Av. Real 123\",\r\n\t\"telefono\": \"999213122\",\r\n\t\"contrasena\": \"assaasa\",\r\n\t\"estado\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{CLIENT_URL}}/clientes/2",
+              "host": [
+                "{{CLIENT_URL}}"
+              ],
+              "path": [
+                "clientes",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Client",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{CLIENT_URL}}/clientes/3",
+              "host": [
+                "{{CLIENT_URL}}"
+              ],
+              "path": [
+                "clientes",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH Client",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"estado\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{CLIENT_URL}}/clientes/2",
+              "host": [
+                "{{CLIENT_URL}}"
+              ],
+              "path": [
+                "clientes",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "POST Transaction",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fecha\": \"2024-01-01T11:12:55Z\",\r\n    \"tipo\": \"deposit\",\r\n    \"valor\": -10.13,\r\n    \"numeroCuenta\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/movimientos",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "movimientos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET ALL Transaction",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/movimientos",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "movimientos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Transaction",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/movimientos/1",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "movimientos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Report Client",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/movimientos/clientes/2/reporte?fechaInicio=2020-01-01T00:00:00Z&fechaFin=2025-01-01T00:00:00Z",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "movimientos",
+                "clientes",
+                "2",
+                "reporte"
+              ],
+              "query": [
+                {
+                  "key": "fechaInicio",
+                  "value": "2020-01-01T00:00:00Z"
+                },
+                {
+                  "key": "fechaFin",
+                  "value": "2025-01-01T00:00:00Z"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Report Client PDF",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ACCOUNT_URL}}/movimientos/clientes/2/reporte/pdf?fechaInicio=2020-01-01T00:00:00Z&fechaFin=2025-01-01T00:00:00Z",
+              "host": [
+                "{{ACCOUNT_URL}}"
+              ],
+              "path": [
+                "movimientos",
+                "clientes",
+                "2",
+                "reporte",
+                "pdf"
+              ],
+              "query": [
+                {
+                  "key": "fechaInicio",
+                  "value": "2020-01-01T00:00:00Z"
+                },
+                {
+                  "key": "fechaFin",
+                  "value": "2025-01-01T00:00:00Z"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "ACCOUNT_URL",
+      "value": ""
+    },
+    {
+      "key": "CLIENT_URL",
+      "value": ""
+    }
+  ]
+}
