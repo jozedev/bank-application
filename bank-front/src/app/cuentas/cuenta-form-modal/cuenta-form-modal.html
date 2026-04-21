@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar Cuenta' : 'Nueva Cuenta' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option value="Ahorros">Ahorros</mat-option>
+        <mat-option value="Corriente">Corriente</mat-option>
+      </mat-select>
+      @if (form.controls.tipo.hasError('required')) {
+        <mat-error>El tipo es requerido.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Saldo Inicial</mat-label>
+      <input matInput type="number" formControlName="saldoInicial" min="0" />
+      @if (form.controls.saldoInicial.hasError('required')) {
+        <mat-error>El saldo inicial es requerido.</mat-error>
+      }
+      @if (form.controls.saldoInicial.hasError('min')) {
+        <mat-error>El saldo no puede ser negativo.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cliente ID</mat-label>
+      <input matInput type="number" formControlName="clienteId" min="0" />
+      @if (form.controls.clienteId.hasError('required')) {
+        <mat-error>El cliente es requerido.</mat-error>
+      }
+      @if (form.controls.clienteId.hasError('min')) {
+        <mat-error>El cliente no puede ser negativo.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="toggle-field">
+      <mat-slide-toggle formControlName="estado">Estado activo</mat-slide-toggle>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-flat-button (click)="submit()">
+    {{ isEdit ? 'Guardar' : 'Crear' }}
+  </button>
+</mat-dialog-actions>

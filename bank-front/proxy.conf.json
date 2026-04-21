@@ -1,0 +1,14 @@
+{
+  "/api": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "pathRewrite": { "^/api": "" },
+    "changeOrigin": true
+  },
+  "/api2": {
+    "target": "http://localhost:8081",
+    "secure": false,
+    "pathRewrite": { "^/api2": "" },
+    "changeOrigin": true
+  }
+}

@@ -1,0 +1,102 @@
+<div class="page-toolbar">
+  <h2>Reportes</h2>
+</div>
+
+<!-- Filtros -->
+<form [formGroup]="form" class="filters-form">
+  <mat-form-field appearance="outline">
+    <mat-label>ID Cliente</mat-label>
+    <input matInput type="number" formControlName="clienteId" min="1" />
+    @if (form.controls.clienteId.hasError('required')) {
+      <mat-error>Requerido.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha Inicio</mat-label>
+    <input matInput type="datetime-local" formControlName="fechaInicio" />
+    @if (form.controls.fechaInicio.hasError('required')) {
+      <mat-error>Requerido.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha Fin</mat-label>
+    <input matInput type="datetime-local" formControlName="fechaFin" />
+    @if (form.controls.fechaFin.hasError('required')) {
+      <mat-error>Requerido.</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-flat-button (click)="buscar()" [disabled]="loading()">
+    <mat-icon>search</mat-icon> Buscar
+  </button>
+
+  <button mat-flat-button (click)="exportarPDF()" [disabled]="loading()">
+    <mat-icon>picture_as_pdf</mat-icon> Exportar PDF
+  </button>
+</form>
+
+<!-- Resultados -->
+@if (loading()) {
+  <div class="spinner-wrap">
+    <mat-spinner diameter="48" />
+  </div>
+} @else if (searched() && reportes().length === 0) {
+  <p class="no-results">No se encontraron resultados para los filtros seleccionados.</p>
+} @else {
+  <mat-accordion multi>
+    @for (cuenta of reportes(); track cuenta.numeroCuenta) {
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="cuenta-title">
+              <mat-icon>account_balance</mat-icon>
+              Cuenta #{{ cuenta.numeroCuenta }} — {{ cuenta.cliente }}
+            </span>
+          </mat-panel-title>
+          <mat-panel-description class="cuenta-meta">
+            <mat-chip-set>
+              <mat-chip>{{ cuenta.tipo }}</mat-chip>
+              <mat-chip [class]="cuenta.estado ? 'chip-active' : 'chip-inactive'">
+                {{ cuenta.estado ? 'Activa' : 'Inactiva' }}
+              </mat-chip>
+            </mat-chip-set>
+            <span class="saldo">Saldo: {{ cuenta.saldo | number:'1.2-2' }}</span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <table mat-table [dataSource]="cuenta.movimiento" class="movimientos-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let m">{{ m.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let m">{{ m.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let m">{{ m.tipo }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="valor">
+            <th mat-header-cell *matHeaderCellDef>Valor</th>
+            <td mat-cell *matCellDef="let m" [class]="m.valor >= 0 ? 'valor-positivo' : 'valor-negativo'">
+              {{ m.valor | number:'1.2-2' }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="movimientoColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: movimientoColumns"></tr>
+          <tr *matNoDataRow>
+            <td colspan="4">No se encontraron movimientos.</td>
+          </tr>
+        </table>
+
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+}

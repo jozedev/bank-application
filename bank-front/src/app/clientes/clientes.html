@@ -1,0 +1,18 @@
+<div class="page-toolbar">
+  <h2>Clientes</h2>
+  <button mat-flat-button (click)="openCreate()">
+    <mat-icon>add</mat-icon> Nuevo Cliente
+  </button>
+</div>
+
+<app-table [columns]="columns" [data]="clientes()" [loading]="loading()" [pageSize]="10"
+  (toggleChange)="onToggleEstado($event)">
+  <ng-template let-cliente>
+    <button mat-icon-button (click)="openEdit(cliente)" title="Editar">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="delete(cliente)" title="Eliminar">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </ng-template>
+</app-table>

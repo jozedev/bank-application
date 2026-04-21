@@ -1,0 +1,87 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar Cliente' : 'Nuevo Cliente' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" />
+      @if (form.controls.nombre.hasError('required')) {
+        <mat-error>El nombre es requerido.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Género</mat-label>
+      <mat-select formControlName="genero">
+        <mat-option value="M">Masculino</mat-option>
+        <mat-option value="F">Femenino</mat-option>
+      </mat-select>
+      @if (form.controls.genero.hasError('required')) {
+        <mat-error>El género es requerido.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="edad" min="0" max="150" />
+      @if (form.controls.edad.hasError('required')) {
+        <mat-error>La edad es requerida.</mat-error>
+      }
+      @if (form.controls.edad.hasError('min') || form.controls.edad.hasError('max')) {
+        <mat-error>Ingrese una edad válida (0–150).</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Identificación</mat-label>
+      <input matInput formControlName="identificacion" />
+      @if (form.controls.identificacion.hasError('required')) {
+        <mat-error>La identificación es requerida.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion" />
+      @if (form.controls.direccion.hasError('required')) {
+        <mat-error>La dirección es requerida.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" />
+      @if (form.controls.telefono.hasError('required')) {
+        <mat-error>El teléfono es requerido.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="contrasena" />
+      @if (form.controls.contrasena.hasError('required')) {
+        <mat-error>La contraseña es requerida.</mat-error>
+      }
+      @if (form.controls.contrasena.hasError('minlength')) {
+        <mat-error>La contraseña debe tener al menos 6 caracteres.</mat-error>
+      }
+      @if (form.controls.contrasena.hasError('maxlength')) {
+        <mat-error>La contraseña no puede exceder los 100 caracteres.</mat-error>
+      }
+
+    </mat-form-field>
+
+    <div class="toggle-field">
+      <mat-slide-toggle formControlName="estado">Estado activo</mat-slide-toggle>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-flat-button (click)="submit()">
+    {{ isEdit ? 'Guardar' : 'Crear' }}
+  </button>
+</mat-dialog-actions>

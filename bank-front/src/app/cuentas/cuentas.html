@@ -1,0 +1,18 @@
+<div class="page-toolbar">
+  <h2>Cuentas</h2>
+  <button mat-flat-button (click)="openCreate()">
+    <mat-icon>add</mat-icon> Nueva Cuenta
+  </button>
+</div>
+
+<app-table [columns]="columns" [data]="cuentas()" [loading]="loading()" [pageSize]="10"
+  (toggleChange)="onToggleEstado($event)">
+  <ng-template let-cuenta>
+    <button mat-icon-button (click)="openEdit(cuenta)" title="Editar">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="delete(cuenta)" title="Eliminar">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </ng-template>
+</app-table>

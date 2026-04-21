@@ -1,0 +1,17 @@
+<div class="page-toolbar">
+  <h2>Movimientos</h2>
+  <button mat-flat-button (click)="openCreate()">
+    <mat-icon>add</mat-icon> Nuevo Movimiento
+  </button>
+</div>
+
+<app-table [columns]="columns" [data]="movimientos()" [loading]="loading()" [pageSize]="10">
+  <ng-template let-movimiento>
+    <button mat-icon-button (click)="openEdit(movimiento)" title="Editar">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="delete(movimiento)" title="Eliminar">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </ng-template>
+</app-table>

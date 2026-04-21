@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: API Clientes
+  description: API CRUD para Cliente (hereda de Persona)
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8081/api
+
+paths:
+  /clientes:
+    get:
+      summary: Obtener todos los clientes
+      operationId: getClientes
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Lista de clientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cliente'
+
+    post:
+      summary: Crear cliente
+      operationId: createCliente
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteCreate'
+      responses:
+        '201':
+          description: Cliente creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Datos inválidos
+
+  /clientes/{clienteId}:
+    get:
+      summary: Obtener cliente por ID
+      operationId: getClienteById
+      tags:
+        - Clientes
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Cliente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: Cliente no encontrado
+
+    put:
+      summary: Actualizar cliente
+      operationId: updateCliente
+      tags:
+        - Clientes
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteUpdate'
+      responses:
+        '200':
+          description: Cliente actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Cliente no encontrado
+
+    patch:
+      summary: Cambiar estado cliente
+      operationId: patchCliente
+      tags:
+        - Clientes
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientePartialUpdate'
+      responses:
+        '200':
+          description: Cliente actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Cliente no encontrado
+
+    delete:
+      summary: Eliminar cliente
+      operationId: deleteCliente
+      tags:
+        - Clientes
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Cliente eliminado
+        '404':
+          description: Cliente no encontrado
+
+components:
+  schemas:
+
+    Persona:
+      type: object
+      required:
+        - nombre
+        - genero
+        - edad
+        - identificacion
+        - direccion
+        - telefono
+      properties:
+        nombre:
+          type: string
+          minLength: 2
+          maxLength: 100
+          example: Juan Perez
+
+        genero:
+          type: string
+          enum: [M, F, O]
+
+        edad:
+          type: integer
+          minimum: 18
+          maximum: 120
+          example: 30
+
+        identificacion:
+          type: string
+          minLength: 5
+          maxLength: 20
+          example: 12345678
+
+        direccion:
+          type: string
+          minLength: 5
+          maxLength: 200
+          example: Av. Siempre Viva 742
+
+        telefono:
+          type: string
+          pattern: "^[0-9+\\- ]{7,15}$"
+          example: +51987654321
+
+
+    Cliente:
+      allOf:
+        - $ref: '#/components/schemas/Persona'
+        - type: object
+          required:
+            - clienteId
+            - estado
+          properties:
+            clienteId:
+              type: integer
+              format: int64
+              readOnly: true
+              example: 1
+
+            estado:
+              type: boolean
+              example: true
+
+
+    ClienteCreate:
+      allOf:
+        - $ref: '#/components/schemas/Persona'
+        - type: object
+          required:
+            - contrasena
+            - estado
+          properties:
+            contrasena:
+              type: string
+              minLength: 6
+              maxLength: 100
+              example: password123
+
+            estado:
+              type: boolean
+              example: true
+
+
+    ClienteUpdate:
+      allOf:
+        - $ref: '#/components/schemas/Persona'
+        - type: object
+          properties:
+            contrasena:
+              type: string
+              minLength: 6
+              maxLength: 100
+
+            estado:
+              type: boolean
+              example: true
+
+
+    ClientePartialUpdate:
+      allOf:
+        - type: object
+          properties:
+            estado:
+              type: boolean
+              example: true
+

@@ -1,0 +1,67 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./bank-app/mysql-scripts/:/docker-entrypoint-initdb.d/
+      - ./bank-app/mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysql", "-uroot", "-proot", "-e", "SHOW TABLES;", "bank-app"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+  client:
+    build:
+      context: ./bank-app/client
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: db
+      DB_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  account:
+    build:
+      context: ./bank-app/account
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      CLIENT_SERVICE_BASE_URI: "http://client:8080"
+      SERVICE_CLIENT_INFO: "/clientes/{id}"
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: db
+      DB_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  frontend:
+    build:
+      context: ./bank-front
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - client
+      - account
+    restart: always
